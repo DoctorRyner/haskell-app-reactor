@@ -4,6 +4,7 @@ dependencies:
 - base >= 4.7 && < 5
 - shared
 - text
+- bytestring
 - generic-lens
 - servant
 - servant-server
@@ -18,6 +19,8 @@ dependencies:
 - wai-logger
 - transformers
 - yaml
+- hasql
+- hasql-pool
 
 ghc-options:
 - -Wall

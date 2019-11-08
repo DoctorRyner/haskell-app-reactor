@@ -2,18 +2,17 @@ module Types where
 
 import           Config
 import           Control.Monad.Trans.Reader
+import           GHC.Generics
+import           Hasql.Pool
 import           Servant
 
 data State = State
-    { pool   :: ()
-    , config :: Config
-    }
+    { config :: Config
+    , pool   :: Pool
+    } deriving Generic
 
-mkState :: Config -> State
-mkState config = State
-    { pool   = ()
-    , config = config
-    }
+mkState :: Config -> Pool -> State
+mkState = State
 
 type AppM = ReaderT State Handler
 
