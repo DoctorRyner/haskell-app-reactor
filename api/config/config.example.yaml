@@ -1,0 +1,4 @@
+psql:
+    dbname: <name>
+    username: <name>
+    password: <name>

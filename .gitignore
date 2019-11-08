@@ -1,0 +1,10 @@
+.stack-work/
+*.cabal
+*.iml
+.idea
+*~
+dist-newstyle
+.DS_Store
+nohup.out
+api/config/*.yaml
+!api/config/*.example.yaml

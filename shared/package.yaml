@@ -1,0 +1,23 @@
+name:                shared
+
+dependencies:
+- base >= 4.7 && < 5
+- text
+- generic-lens
+- miso
+- miso-spa
+
+ghc-options:
+- -Wall
+- -Wno-name-shadowing
+- -Werror=incomplete-patterns
+
+default-extensions:
+- DeriveGeneric
+- DuplicateRecordFields
+- OverloadedLabels
+- OverloadedStrings
+- LambdaCase
+
+library:
+  source-dirs: src
