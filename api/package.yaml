@@ -26,6 +26,7 @@ dependencies:
 ghc-options:
 - -Wall
 - -Wno-name-shadowing
+- -Wno-unused-do-bind
 - -Werror=incomplete-patterns
 
 default-extensions:

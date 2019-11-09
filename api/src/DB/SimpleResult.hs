@@ -7,15 +7,11 @@ module DB.SimpleResult
     , Text
     ) where
 
-import           Control.Monad.Trans.Reader
 import           Data.ByteString
-
-import           Data.Generics.Internal.VL.Lens
 import           Data.Text
 import           DB.Hasql
 import           Hasql.Decoders
-import qualified Hasql.Encoders                 as E
-import           Hasql.Pool                     (UsageError)
+import qualified Hasql.Encoders  as E
 import           Hasql.Session
 import           Hasql.Statement
 import           Types
@@ -23,10 +19,9 @@ import           Types
 query' :: ByteString -> Result b -> Session b
 query' sqlCode decoder = statement () $ Statement sqlCode mempty decoder True
 
-query :: ByteString -> Result a -> AppM (Either UsageError a)
-query sqlCode decoder = ask >>= \state ->
-    db (state ^. #pool) $ query' sqlCode decoder
+query :: ByteString -> Result a -> AppM a
+query sqlCode decoder = either (fail . show) pure =<< db (query' sqlCode decoder)
 
-queryParams :: ByteString -> a -> E.Params a -> Result b -> AppM (Either UsageError b)
-queryParams sqlCode val encoder decoder = ask >>= \state ->
-    db (state ^. #pool) $ statement val $ Statement sqlCode encoder decoder True
+queryParams :: ByteString -> a -> E.Params a -> Result b -> AppM b
+queryParams sqlCode val encoder decoder =
+    either (fail . show) pure =<< db (statement val $ Statement sqlCode encoder decoder True)
