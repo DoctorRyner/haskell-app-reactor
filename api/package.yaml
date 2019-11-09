@@ -21,6 +21,7 @@ dependencies:
 - yaml
 - hasql
 - hasql-pool
+- time
 
 ghc-options:
 - -Wall

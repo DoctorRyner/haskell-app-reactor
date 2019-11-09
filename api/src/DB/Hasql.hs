@@ -1,22 +1,25 @@
 module DB.Hasql where
 
-import           Control.Monad.IO.Class (MonadIO, liftIO)
+import           Config
+import           Control.Monad.IO.Class         (MonadIO, liftIO)
+import           Data.Generics.Internal.VL.Lens
 import           Hasql.Connection
-import           Hasql.Pool             (Pool, UsageError, use)
+import           Hasql.Pool                     (Pool, UsageError, use)
 import           Hasql.Session
 
-dbSettings :: Settings
-dbSettings = settings "localhost" 5432 "local" "" "graph_test"
+convertSettings :: PostgreSQLConfig -> Settings
+convertSettings psql =
+    settings "localhost" 5432 (psql ^. #username) (psql ^. #password) (psql ^. #dbname)
 
-connect :: IO Connection
-connect = do
-    Right connection <- acquire dbSettings
-    pure connection
+-- connect :: IO Connection
+-- connect = do
+    -- Right connection <- acquire dbSettings
+    -- pure connection
 
-mkQuery :: MonadIO m => Session a -> m (Maybe a)
-mkQuery query = liftIO (run query =<< connect) >>= \case
-    Right val -> pure $ Just val
-    Left  _   -> pure Nothing
+-- mkQuery :: MonadIO m => Session a -> m (Maybe a)
+-- mkQuery query = liftIO (run query =<< connect) >>= \case
+    -- Right val -> pure $ Just val
+    -- Left  _   -> pure Nothing
 
 errOrUnpack :: MonadIO m => m a -> m (Maybe a) -> m a
 errOrUnpack err handler = handler >>= \case
