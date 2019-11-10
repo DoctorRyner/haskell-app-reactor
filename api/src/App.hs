@@ -35,7 +35,7 @@ runApp = withStdoutLogger $ \appLogger -> do
     pool   <- Pool.acquire
         ( config ^. #psql . #poolSize
         , config ^. #psql . #poolConnectionTimeoutInSec
-        , dbSettings
+        , convertSettings $ config ^. #psql
         )
 
     let settings = setPort 3000
