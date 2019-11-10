@@ -21,6 +21,8 @@ dependencies:
 - yaml
 - hasql
 - hasql-pool
+- postgresql-simple
+- postgresql-simple-migration
 - time
 - miso
 

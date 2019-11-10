@@ -4,6 +4,7 @@ import           API
 import qualified Config
 import           Data.Generics.Internal.VL.Lens
 import           DB.Hasql
+import           DB.Migration
 import qualified Hasql.Pool                     as Pool
 import           Network.Wai
 import           Network.Wai.Handler.Warp       as Warp
@@ -26,10 +27,15 @@ runApp = withStdoutLogger $ \appLogger -> do
     putStrLn "Backend = http://localhost:3000/swagger-ui"
 
     config <- Config.load
+
+    let dbSettings = convertSettings $ config ^. #psql
+
+    initDB dbSettings
+
     pool   <- Pool.acquire
         ( config ^. #psql . #poolSize
         , config ^. #psql . #poolConnectionTimeoutInSec
-        , convertSettings $ config ^. #psql
+        , dbSettings
         )
 
     let settings = setPort 3000
