@@ -22,6 +22,7 @@ dependencies:
 - hasql
 - hasql-pool
 - time
+- miso
 
 ghc-options:
 - -Wall

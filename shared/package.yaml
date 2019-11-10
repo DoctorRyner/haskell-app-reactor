@@ -6,6 +6,15 @@ dependencies:
 - generic-lens
 - miso
 - miso-spa
+- aeson
+
+when:
+- condition: impl(ghcjs)
+  then:
+    dependencies: []
+  else:
+    dependencies:
+    - swagger2
 
 ghc-options:
 - -Wall
