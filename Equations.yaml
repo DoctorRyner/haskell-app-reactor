@@ -1,2 +1,2 @@
-gui-dev: cd gui && ghcid -c "stack ghci gui" -r=debugApp
-api-dev: cd api && ghcid -c "stack ghci api" -r=runApp
+gui-dev: cd gui && ghcid -c "stack ghci gui shared" -r=debugApp
+api-dev: cd api && ghcid -c "stack ghci api shared" -r=runApp
